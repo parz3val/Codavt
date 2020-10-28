@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from enum import Enum
+from typing import Optional
 
 app = FastAPI()
 
@@ -63,3 +64,15 @@ fake_items_db = [{"items_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz
 async def read_stuff(skip: int = 0, limit: int = 10):
     return fake_items_db[skip: skip + limit]
 
+# Optional parameters
+@app.get("/stuffs/{stuff_id}")
+async def get_stuff(item_id : str, q : Optional[str] = None, short: bool = False):
+    item = {"item_id": item_id}
+
+    if q:
+        item.update({"q": q})
+    if not short:
+        item.update(
+            {"Description": "I already like FastAPI more."}
+        )
+    return item

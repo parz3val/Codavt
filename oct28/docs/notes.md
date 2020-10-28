@@ -57,6 +57,23 @@ Here, the parameter q will be optional and will be None by default.
 >> Note: 
 Keep in mind that FastAPI is smart enough to notice tht the path parameter `item_id` is a path parameter and `q` is not, it's a querey parameter.
 FastAPI will know that `q` is optional parm because of the `=None`. 
+The Optional in Optional[str] is not used by FastAPI (FastAPI will only use the str part), but the Optional[str] will let your editor help you finding errors in your code. We can alsso use `ENUM` the same way as with Path Parameters. 
 
-The Optional in Optional[str] is not used by FastAPI (FastAPI will only use the str part), but the Optional[str] will let your editor help you finding errors in your code.
+>> We can use all kinds of parameters in the same function.
+
+## Request Body
+
+When we send data from a client to our API, it is packaged in a request body. When server sends data back to our client, it is packaged up in a response body. 
+
+An API almost always has to send a response body. But don't necessarily need to send request bodiess all the time.
+
+**To declare a request body, we use Pydantic models with all their power and benefits. :)**
+
+>> Note:
+To send data, use one of : POST (the most common), PUT, DELETE, or PATCH.
+Sending a body with a `GET` reequest has an undefined behavior in the specs, nevertheless, it is supported by FastAPI, only for very complex/extreme use cases.
+As it is discouraged, the interactive docs with Swagger UI won't show the documentation body when using `GET`, and proxies in the middle might not support it.
+
+
+
 
