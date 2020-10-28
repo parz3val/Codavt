@@ -2,7 +2,7 @@
 # the main file got too crowded.
 
 from typing import Optional
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -48,3 +48,33 @@ async def create_item(item: Item):
 async def put_item(item_id: int, item: Item):
     # ** operator here is used to unpack the contents of item
     return {"item_id": item_id, **item.dict()}
+
+@app.put("/items/{item_id}")
+async def blip_item(item_id: int, item: Item, q: Optional[str] = None):
+    result = {"item_id": item_id, **item.dict()}
+    if q:
+        result.update({"q": q})
+    return result
+
+""" @app.get("/items/")
+async def read_items(q: Optional[str] = Query(None, max_length=50)):
+    results = {"items": [
+        {"item_id": "Foo"},
+        {"item_id" : "Bar"}
+    ]}
+    if q:
+        results.update({"q": q})
+    return results
+     """
+
+# Above can also bee written as
+@app.get("/items/")
+async def read_items(q: str = Query(None, max_length=50)):
+    results = {"items": [
+        {"item_id": "Foo"},
+        {"item_id" : "Bar"}
+    ]}
+    if q:
+        results.update({"q": q})
+    return results
+    

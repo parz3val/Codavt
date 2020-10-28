@@ -75,5 +75,32 @@ Sending a body with a `GET` reequest has an undefined behavior in the specs, nev
 As it is discouraged, the interactive docs with Swagger UI won't show the documentation body when using `GET`, and proxies in the middle might not support it.
 
 
+## Query Parameters and String Validations
+
+FastAPI allows to declare information and validation for our parameters. FastAPI can auto validate the required and optional parameters.
+
+**Additional Validation**
+
+To enforce additoional validation we can usee the `Query` module of the FastAPI.
+
+`from fastapi import Query`
+
+```python
+@app.get("/items/")
+async def read_items(q: Optional[str] = Query(None, max_length = 50)):
+    ressults = {"items": [{"item_id": "Foo"}, {"item_id": Bar}]}
+    if q:
+        results.update({"q":q})
+        return results
+```
+
+While doing the optional validation, we can ommit the Optional Keyword and replace it with just the Query validation.
+So, `q: Optional[str] = Query(None, max_length = 50)` can also be writteen as ` q: str: Query(None, min_length = 5, max_length = 50)` . 
+
+We can do even more things with the Query validation like:
+
+1. Regex
+2. Default values
+3. Make Required values
 
 
