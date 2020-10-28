@@ -1,59 +1,30 @@
-## Quick Guide
+## Fast API
 
-1. Import FastAPI
+- Web framework for building APIs
 
-` from fastapi import FastAPI`
+- Used to build web apis with the type annotated code.
 
-2. create a FastAPI "instance"
-` app = FastAPI() `
+### Depenedencies
+1. Pydantic - For the type annotations.
+2. Univorn - ASGI Server // Can also use Django or Flask
 
-3. Create a path operation
-
-` /items/foo` 
-Operation here refers to one of the HTTP methods.
-- POST
-- GET
-- PUT 
-- DELETE
-
-Exotic ones
-
-- OPTIONS
-- HEAD
-- PATCH
-- TRACE
-
-All the path operations are executed with the path operation decorator.
-
-For example:
-The @app.get("/") tells FastAPI that the function is in charge of handling requests that go:
-- the path "/"
-- using a get operation
-
->> More decorator ops for the FastAPI
-- @app.post()
-- @app.put()
-- @app.delete()
-- @app.options()
-- @app.head()
-- @app.patch()
-- @app.trace()
-
-4. Define the path operation function
-Operation function provides functionalities for our API endpoints. In the given function.
-
-- path is "/"
-- operation is `get`
-- functions : is the func below the "decorator" 
-```python
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/")
-async def root():
-    return {"message" : "This is root"}
+``` 
+uvicorn main:app --reload  
+// --reload, reloads the page automatically on the content change.
 ```
-This fucntion is called by FastAPI whenever it receives a request to the given path/URL using a a GET operation.
-In this case, this is an `async` function.
 
+### Important features
+1. Editor Support - Type Checking, Completion
+2. Data validation - automatic and clear errors; validation for deeply nested JSON objects.
+3. Conversion of input data from the protocol to Py data and types including
+- JSON
+- Path parms and args
+- Query and parms
+- Cookies
+- Headeres
+- Forms
+- Files
+4. Conversion of ouput data from pyd to JSON
+5. Open API Specification `https://github.com/OAI/OpenAPI-Specification`
+6. Better JSON Schema `http://json-schema.org/`
+7. Static Typing `https://fastapi.tiangolo.com/python-types/`
