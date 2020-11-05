@@ -49,4 +49,4 @@ async def allocate_endpoint(request):
 # Run with uvicorn
 
 if __name__ == "__main__":
-    uvicorn.run("star_app:app", host="127.0.0.1", port=5000, log_level="info")
+    uvicorn.run("star_app:app", host="127.0.0.1", port=8000, log_level="info")
