@@ -6,42 +6,42 @@
 
 - Other books to take a look:
 
-    a. TDD with Python: Harry JW. Percival  `http://www.obeythetestinggoat.com/`
+  a. TDD with Python: Harry JW. Percival `http://www.obeythetestinggoat.com/`
 
-    b. DDD : Eric Evans 
+  b. DDD : Eric Evans
 
-    c. Patterns of Enterprise Application 
-    Architecture: Martin Fowler
-    d. Fowler's refactorning : Martin Fowler
-
+  c. Patterns of Enterprise Application
+  Architecture: Martin Fowler
+  d. Fowler's refactorning : Martin Fowler
 
 - The book provides notes on managing complexity of a business domain application. In general we use,:
-    1. **TDD** : TDD is RGR (Red Green Refactor) methodology where we can write test to cover the functionalities of our application without fear of regression.
-    
-    2. **DDD** : DDD is a strategy of focusing on building model of our core business logic.
 
-    3. **Loosely occupied services integrated via messages** or reactive microservices: Is an established way of managing complexity and infrastructure across variety of applications. Isn't that much clear as a lot of python projects are built as monoliths. 
+  1. **TDD** : TDD is RGR (Red Green Refactor) methodology where we can write test to cover the functionalities of our application without fear of regression.
+
+  2. **DDD** : DDD is a strategy of focusing on building model of our core business logic.
+
+  3. **Loosely occupied services integrated via messages** or reactive microservices: Is an established way of managing complexity and infrastructure across variety of applications. Isn't that much clear as a lot of python projects are built as monoliths.
 
 - Map
-    
-    a. Domain modeling and DDD 
 
-    b. Event-driven architecture
+  a. Domain modeling and DDD
 
-    c. Epilogue
+  b. Event-driven architecture
+
+  c. Epilogue
 
 - Code examples
 
-    - Branch history:`https://github.com/cosmicpython/code/branches/all`
+  - Branch history:`https://github.com/cosmicpython/code/branches/all`
 
 - Building DDD support arch/ Design Patterns
-    - The Repository Pattern - ps abastraction
-    - Service layer patteern - separates use cases from logic
-    - Unit of work pattern - for atomic ops
-    - The aggregate pattern - enforce integrity of our data
+
+  - The Repository Pattern - ps abastraction
+  - Service layer patteern - separates use cases from logic
+  - Unit of work pattern - for atomic ops
+  - The aggregate pattern - enforce integrity of our data
 
 - Create UML from text desc: `https://plantuml.com/`
-
 
 ## Part 1: Domain models
 
@@ -49,24 +49,23 @@
 
 - Model : A model is a map of a process or phenomenon that captures a useful property.
 
-- The domain model is the mental map that business owners have of their businesses. 
+- The domain model is the mental map that business owners have of their businesses.
 
 - Hence domain modelling is solving problems by capturing the requirement and specifications from the class attributes of the system.
 
-- Jargon arises naturally among people who are collaborating on complex systems. 
+- Jargon arises naturally among people who are collaborating on complex systems.
 
 - **This Is Not a DDD Book. You Should Read a DDD Book.**
 
-    - Implementing Domain-Driven Design by Vaughn Vernon (`red book`)
+  - Implementing Domain-Driven Design by Vaughn Vernon (`red book`)
 
-    - DDD by Eric Evans (`blue book`)
+  - DDD by Eric Evans (`blue book`)
 
 - DDD has inspired many arch patterns like Entity, Value Object, Aggregate and Repository
 
 - DDD >> "the most important thing about software is that it provides useful model of our problem"
 
 - The terminology used by business stakeholders represents a distilled understanding of the domain model, where complex ideas and processes are boiled down to a single word or phrase. When we hear our business stakeholders using unfamiliar words, or using terms in a specific way, we should listen to understand the deeper meaning and encode their hard-won experience into our software.
-
 
 ### The domain language
 
@@ -75,9 +74,10 @@
 - creating notes for the models in terms of domain is helpful to make models that are clear and easily understood.
 
 - Typing hints:
-    - Typing hints are important because they help us to understand our models better.
-    - We can use `Pydantic` or `typing` library from python to get the definition and hinting of our primitives.
-    - We can also define our own types with typing module and take things too far.
+
+  - Typing hints are important because they help us to understand our models better.
+  - We can use `Pydantic` or `typing` library from python to get the definition and hinting of our primitives.
+  - We can also define our own types with typing module and take things too far.
 
 - taking it too far: Here we define new types for our data.
 
@@ -97,50 +97,49 @@ class Batch:
         self._purchased_quantity = qty
 ```
 
-- **DataClasses** 
-    - the data classes are very primitive class definitions, similar to structs in C and C++, and they are virtually same as namedtuples.
-    - data classes are useful to represent entities which have data but no unique references.
-    - data classes are used to hold value objects
-    - value objects are domain obects with unique data identifty. We make them immutable.
-    - **don't forget difference between Value objects and entites and where to best use them**
+- **DataClasses**
+
+  - the data classes are very primitive class definitions, similar to structs in C and C++, and they are virtually same as namedtuples.
+  - data classes are useful to represent entities which have data but no unique references.
+  - data classes are used to hold value objects
+  - value objects are domain obects with unique data identifty. We make them immutable.
+  - **don't forget difference between Value objects and entites and where to best use them**
 
 - Domain Service Function: Not everything has to be an object
-    - We can use magic methods from python to turn our value objects into functions/methods
-    - stuff that takes in data, does something to it, and returns them sounds like a function and is represented well.
-    - Few important magic methods for implementing the domain service function
-        - `__gt__` 
-        - `__hash__` 
-        >> For value objects, the hash should be based on all the value attributes, and we should ensure that the objects are immutable. We get this for free by specifying @frozen=True on the dataclass.
-        - `__eq__` 
-        - datamodel methods docs: `https://docs.python.org/3/reference/datamodel.html#object.__eq__` 
 
-        - types ref : `https://docs.python.org/3/library/stdtypes.html#frozenset` 
+  - We can use magic methods from python to turn our value objects into functions/methods
+  - stuff that takes in data, does something to it, and returns them sounds like a function and is represented well.
+  - Few important magic methods for implementing the domain service function
 
+    - `__gt__`
+    - `__hash__`
+      > > For value objects, the hash should be based on all the value attributes, and we should ensure that the objects are immutable. We get this for free by specifying @frozen=True on the dataclass.
+    - `__eq__`
+    - datamodel methods docs: `https://docs.python.org/3/reference/datamodel.html#object.__eq__`
 
+    - types ref : `https://docs.python.org/3/library/stdtypes.html#frozenset`
 
->> "Sometime it just isn't thing" -- Eric Evans
+> > "Sometime it just isn't thing" -- Eric Evans
 
 ```
-Evans discusses the idea of Domain Service operations that 
+Evans discusses the idea of Domain Service operations that
 don’t have a natural home in an entity or value object.
-A thing that allocates an order line, given a set of batches, 
-sounds a lot like a function, and we can take advantage 
-of the fact that Python is a multiparadigm language and just 
+A thing that allocates an order line, given a set of batches,
+sounds a lot like a function, and we can take advantage
+of the fact that Python is a multiparadigm language and just
 make it a function.
 ```
 
-
 - Exceptions Can Express Domain Concepts Too
-    - for instance : for a tasklist app, exceptions like taskalreadyset or tasknot found, can represent domain concepts.
-
+  - for instance : for a tasklist app, exceptions like taskalreadyset or tasknot found, can represent domain concepts.
 
 ### Summary
 
-**Domain Modelling** 
+**Domain Modelling**
 
-part of code that is closet to business, is most likely to change and delivers the value to business. *make it easy to understand and modify*
+part of code that is closet to business, is most likely to change and delivers the value to business. _make it easy to understand and modify_
 
-**Differentiate entities from value objects** 
+**Differentiate entities from value objects**
 
 best represented as immutable objects, value objects are defined by its attributes. If you change an attribute on VO its a different object. having a separation of entities and value objects goes long way towards better models.
 
@@ -154,7 +153,6 @@ modelling is where you show off your oop skills, revisit SOLID principles and ot
 
 **Think about consistency boundaries and aggregates**
 
-
 ## Repository Pattern
 
 - an abstraction over persistent storage, hides complexities of database and makes it easier to test.
@@ -162,16 +160,17 @@ modelling is where you show off your oop skills, revisit SOLID principles and ot
 - in this model, we build a `repository` object which sits between our domain model and storage solutions.
 
 - why need this
-    - we need to have persistence for our models
-    - we want to hide the data layer logic
+
+  - we need to have persistence for our models
+  - we want to hide the data layer logic
 
 - we can use any architecture we like like `onion`, `clean` or any as long as they provide the separation between our domain models and the db access logic.
 
-- in fact, we want our models to be independent and unaware of where the data  dumps to and loads from.
+- in fact, we want our models to be independent and unaware of where the data dumps to and loads from.
 
 - we can use ORM to achieve this goal, but we need to make sure that there aren't unnecessary complexities and dependencies with the ORM library, ORMs bridge the gap between the world of logic, models and objects to that of pure algebric relations that we need for our dbs.
-    - e.g. 
-    
+  - e.g.
+
 ```python
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -192,15 +191,18 @@ class OrderLine(Base):
 class Allocation(Base):
     ...
 ```
+
 - in the above example, we are using the `SQLalchemy` ORM library but all of our models are coupled with the columns of our db, so its not independent of the db layer or the complexity that comes with it.
 
 - DIP : Dependency Inversion Principle
-    - Robert C Martin
-    - One of the foundations of solid principles
-    - High level modules shouldn't depend on low level modules
-    - abstractions shouldn't depened on details, details should depend on abstractions
+
+  - Robert C Martin
+  - One of the foundations of solid principles
+  - High level modules shouldn't depend on low level modules
+  - abstractions shouldn't depened on details, details should depend on abstractions
 
 - Code that violates DIP:
+
 ```python
 class Book:
     def __init__(self, content: str):
@@ -214,14 +216,15 @@ class Printer:
     def print(self, book: Book):
         formatter = Formatter()
         formatted_book = formatter.format(book)
-        ... 
+        ...
         # Printing the book
 ```
+
 Here the models like printer and formatter are dependent on the book and hence can't be used with other books.
 They have concretions instead of abstractions.
 
 - We can use `Protocols: ` to write DIP code. The above code with proper DIP and dataclass decorators would be.
-    - `https://mypy.readthedocs.io/en/stable/protocols.html#simple-user-defined-protocols`
+  - `https://mypy.readthedocs.io/en/stable/protocols.html#simple-user-defined-protocols`
 
 ```python
 # Protocol for the book
@@ -260,20 +263,22 @@ printer = Printer(formatter)
 ```
 
 - **Dependency Injection**
-    - dependency injection is design pattern used to implement the IoC(inversion of control), here dependencies are handled by creating dependent objects outside the class and injecting them back into class for the functionality
 
-    -  DI involves three different types of classes 
-        - Client class : the class(dependent class) on which the dependencies arise from
-        - Service class : service class (dependency) is the class which provides service to client class.
-        - Injection class : injector class to inject service class object into client class
-    
-    - Types of DI
-        - constructor injection
-        - property injection
-        - method injection
+  - dependency injection is design pattern used to implement the IoC(inversion of control), here dependencies are handled by creating dependent objects outside the class and injecting them back into class for the functionality
+
+  - DI involves three different types of classes
+
+    - Client class : the class(dependent class) on which the dependencies arise from
+    - Service class : service class (dependency) is the class which provides service to client class.
+    - Injection class : injector class to inject service class object into client class
+
+  - Types of DI
+    - constructor injection
+    - property injection
+    - method injection
 
 - **Inverting the dependencies: ORM depends on the model**
-In the SQL alchemy code example above, our models are coupled with the ORM dependencies. We can either use dependency injection to achieve DIP and get our core models and db logic loosely coupled.
+  In the SQL alchemy code example above, our models are coupled with the ORM dependencies. We can either use dependency injection to achieve DIP and get our core models and db logic loosely coupled.
 
 ```python
 from sqlalchemy.orm import mapper, relationship
@@ -294,8 +299,9 @@ order_lines = Table(  #(2)
 ...
 
 def start_mappers():
-    lines_mapper = mapper(model.OrderLine, order_lines)  #(3)  
+    lines_mapper = mapper(model.OrderLine, order_lines)  #(3)
 ```
+
 1. The ORM imports (or "depends on" or "knows about") the domain model, and not the other way around.
 
 2. We define our database tables and columns by using SQLAlchemy’s abstractions.
@@ -303,7 +309,6 @@ def start_mappers():
 3. When we call the mapper function, SQLAlchemy does its magic to bind our domain model classes to the various tables we’ve defined.
 
 - The other benefit of using ORM like this is that we can write tests with good coverage. But we won't keep such tests as it only aims to guide in developing repo pattern, which is the one we want to test against and is easy to do.
-
 
 **The Repository Pattern**
 The repo pattern is abstraction over persistent storage. To a pythonista, it might just mean a python object with `.get` and `.add` methods available to it. It hides all the details of implementation by pretending all of our data is in memory.
@@ -317,16 +322,15 @@ The repo pattern is abstraction over persistent storage. To a pythonista, it mig
 - Static duck typing - duck typing with some type hints but no type checks or validations.
 
 - Trade off of repo model
->> You know they say economists know the price of everything and the value of nothing? Well, programmers know the benefits of everything and the trade-offs of nothing.
+  > > You know they say economists know the price of everything and the value of nothing? Well, programmers know the benefits of everything and the trade-offs of nothing.
 
--- Ryan Hickey 
+-- Ryan Hickey
 
 - **Port and Adapter in Python**
 
-    - Port: port is the interface between our application and whatever we want to abstract away
+  - Port: port is the interface between our application and whatever we want to abstract away
 
-    - Adapter: Is the implementation of the port behind that interface or abstraction
-
+  - Adapter: Is the implementation of the port behind that interface or abstraction
 
 ## Summary and Takeaways
 
@@ -351,7 +355,6 @@ The repo pattern is abstraction over persistent storage. To a pythonista, it mig
 
 7. To really reap the benefits of ABCs (such as they may be), be running helpers like pylint and mypy.
 
-
 ## Abstraction and clean code
 
 - Abstraction is a process of hiding away the messy details or just giving names to stuff.
@@ -362,35 +365,39 @@ The repo pattern is abstraction over persistent storage. To a pythonista, it mig
 
 - abstraction in programming is giving reference to objects, to hide the details of implementation so that we can reuse them more easily, or test with better coverage.
 
->>  vocabulary of Gerard Meszaros's book
+> > vocabulary of Gerard Meszaros's book
 
-- **Test Double** - Any pretend object that is just used in testing as a replacement to the real object for various reasons. Mesazaros's doubles are: - 
-    - **Dummy** - Dummy's are objects that are created and just around, but not actually used. They are just used to fill the parameter lists and stuff.
-    - **Fake** - These are striped down versions of real objects and have working implementations of the real objects. But using shortcuts in implementation for the tests makes them unsuitable for production. (for instance: In memory database)
-    - **Mocks** - Mocks are the objects that are preprogrammed with the expectations of the calls they are to receive and answers the formulate.
-    -  **Stubs** - Stubs provide canned answers to calls made during the test, and don't respond to anything outside of their prorgamming bound
-    - **Spies** - Spies are the stubs that record some information on how they are called. (For instance: an email service that records how many emails were sent)
+- **Test Double** - Any pretend object that is just used in testing as a replacement to the real object for various reasons. Mesazaros's doubles are: -
+
+  - **Dummy** - Dummy's are objects that are created and just around, but not actually used. They are just used to fill the parameter lists and stuff.
+  - **Fake** - These are striped down versions of real objects and have working implementations of the real objects. But using shortcuts in implementation for the tests makes them unsuitable for production. (for instance: In memory database)
+  - **Mocks** - Mocks are the objects that are preprogrammed with the expectations of the calls they are to receive and answers the formulate.
+  - **Stubs** - Stubs provide canned answers to calls made during the test, and don't respond to anything outside of their prorgamming bound
+  - **Spies** - Spies are the stubs that record some information on how they are called. (For instance: an email service that records how many emails were sent)
 
 - **"Tell Don't Ask"** principle, which encourages you to tell an object to do something rather than rip data out of an object to do it in client code.
 
 - work at the highest level of abstraction possible rather than doing checks on the behavior of intermediary collaborators
 
-### Relationship between TDD and DDD**
+### Relationship between TDD and DDD\*\*
 
 TDD comes from the tradition of xP out of Detroit School and focuse on behavior and state design through iteration of tests. (Think of RGR cycle). The TDD community follows the mockists and classicist ideologies in testing, where you test for behavior with mocks and with/without doubles respectively. The idea of TDD is to have a better coverage for the SUT and iterate.
 
 But in DDD, we use TDD as a design inspiration and testing practice/inspiration as second. Object testing with fakes is at the heart of TDD because we want to test for both the state and behavior of the SUT, rather than writing small coverage tests for intermediary collaborators.
 
+### Some notes on architecture from Martin Fowler
 
+> > "“Architecture is about the important stuff. Whatever that is”.
+
+- Ralph Johnson
 
 ## Further reading:
+
     - `https://refactoring.com/` - Guide to refactoring and design by Martin Fowler
 
-    - `https://martinfowler.com/architecture/` - Guide about the architecture of 
+    - `https://martinfowler.com/architecture/` - Guide about the architecture of
     the enterprise apps.
 
     - Mocks aren't stubs- `https://martinfowler.com/articles/mocksArentStubs.`htmlGuide on testing with mocks and stubs.
 
     - Behavior Driven Development (BDD) : `https://dannorth.net/introducing-bdd/`
-
-
