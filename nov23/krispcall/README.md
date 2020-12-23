@@ -29,6 +29,7 @@ Clients (PSTN /HTTP) --> Twilio Server (HTTP) --> SIP server or agents (SIP) <--
 - Call history
 - Instant responding
 - Custom greetings
+- Answering machine detection
 
 ## Software (Application Layer) Requirements and architecture
 
